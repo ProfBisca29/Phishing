@@ -53,7 +53,7 @@ cat /var/www/html/snapchat-phish/credentials.txt
 
 sudo tail -f /var/www/html/snapchat-phish/credentials.txt
 
-(On the user VM, do http://attacker_IP/snapchat-phish/index.html) (Or just even input attacker_IP into user VM)
+(On the user VM, do http://attacker_IP/snapchat-phish/index.html) (Or http://attacker_IP/snapchat-phish/index.html)
 
 (QUICK SUMMARY)
 # 1. Install Apache

